@@ -1,0 +1,1 @@
+SELECT "first_name", "last_name", "bats" AS "Batting Hand", "debut" FROM "players" WHERE "debut" BETWEEN '1919-12-31' AND '1930-1-1' ORDER BY "birth_country";

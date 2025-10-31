@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM "episodes" WHERE "air_date" BETWEEN '2018-1-1' AND '2024-1-1';

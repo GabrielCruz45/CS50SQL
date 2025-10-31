@@ -1,0 +1,1 @@
+SELECT COUNT("title") FROM "episodes" WHERE "air_date" >= '2019-1-1' AND "topic" is NULL;
