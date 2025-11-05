@@ -1,4 +1,5 @@
 from database import Base
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import List
 
@@ -13,7 +14,7 @@ from typing import List
 class Address(Base):
     __tablename__ = "addresses"
     
-    id: Mapped[int]
+    id: Mapped[int] = mapped_column(primary_key=True)
     address: Mapped[str] = mapped_column(nullable=False)
     # 'type' column renamed  to 'address_label' to avoid keyword conflict
     address_label: Mapped[str] = mapped_column("type", nullable=False)
@@ -46,10 +47,10 @@ class Address(Base):
 class Package(Base):
     __tablename__ = "packages"
     
-    id: Mapped[int]
+    id: Mapped[int] = mapped_column(primary_key=True)
     contents: Mapped[str]
-    from_address_id: Mapped[int]
-    to_address_id: Mapped[int]
+    from_address_id: Mapped[int] = mapped_column(ForeignKey("addresses.id"), nullable=False)
+    to_address_id: Mapped[int] = mapped_column(ForeignKey("addresses.id"), nullable=False)
     
     
     from_address: Mapped["Address"] = relationship(
@@ -76,7 +77,7 @@ class Package(Base):
 class Driver(Base):
     __tablename__ = "drivers"
     
-    id: Mapped[int]
+    id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
     
     
@@ -102,10 +103,10 @@ class Driver(Base):
 class Scan(Base):
     __tablename__ = "scans"
     
-    id: Mapped[int]
-    driver_id: Mapped[int]
-    package_id: Mapped[int]
-    address_id: Mapped[int]
+    id: Mapped[int] = mapped_column(primary_key=True)
+    driver_id: Mapped[int] = mapped_column(ForeignKey("drivers.id"), nullable=False)
+    package_id: Mapped[int] = mapped_column(ForeignKey("packages.id"), nullable=False)
+    address_id: Mapped[int] = mapped_column(ForeignKey("addresses.id"), nullable=False)
     action: Mapped[str]
     timestamp: Mapped[float]
     
